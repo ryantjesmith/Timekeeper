@@ -7,6 +7,11 @@
   <author email="you@example.com" href="http://example.com.com/">
       Your Name Here
     </author>
+
+  <plugin name="cordova-plugin-whitelist" spec="1.2.1" />
+  <plugin name="org.apache.cordova.geolocation" spec="2.1.0" />
+
+
   <content src="index.html"/>
   <access origin="*"/>
   <access origin="*.google.com"/>
@@ -21,6 +26,14 @@
   <preference name="BackupWebStorage" value="none"/>
   <preference name="SplashScreen" value="screen"/>
   <preference name="SplashScreenDelay" value="3000"/>
+
+  <access origin="http://api-timekeeper.herokuapp.com/*" launch-external="yes"/>
+  <access origin="geo:*" launch-external="yes" />
+  <allow-navigation href="*" />
+  <allow-intent href="http://*"/>
+  <allow-intent href="https://*"/>
+  <allow-intent href="geo:*"/>
+
   <icon src="icon.png"/>
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
@@ -30,6 +43,7 @@
     <param name="android-package" value="org.apache.cordova.camera.CameraLauncher"/>
   </feature>
   <platform name="android">
+    <allow-intent href="*"/>
     <icon src="icon.png"/>
     <splash src="resources/android/splash/drawable-land-ldpi-screen.png" density="land-ldpi"/>
     <splash src="resources/android/splash/drawable-land-mdpi-screen.png" density="land-mdpi"/>

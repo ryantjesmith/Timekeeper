@@ -5,7 +5,7 @@ app.controller('settingsCtrl', ['$scope','settingsService', function($scope, set
   	$scope.totaalbedrag = true;
   }
   else{
-	$scope.totaalbedrag = false;
+	  $scope.totaalbedrag = false;
   }
 
   $scope.saveSettings = function(){
@@ -15,5 +15,8 @@ app.controller('settingsCtrl', ['$scope','settingsService', function($scope, set
   		window.localStorage.setItem("totaalbedrag", 'true');
   	else
   		window.localStorage.setItem("totaalbedrag", 'false');
+
+    window.location.href = '#/months';
+    window.location.reload();
   }
 }])

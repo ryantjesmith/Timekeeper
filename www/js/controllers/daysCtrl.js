@@ -118,28 +118,6 @@ app.controller('daysCtrl', ['$scope','$stateParams', 'recordsService', '$cordova
       return d.getDate();
    }
 
-   self.validateForm = function(data){
-      var amountOfInputs = 0;
-      var timeFormat = /^([0-9]{2})\:([0-9]{2})$/;
-      self.passed = true;
-
-      angular.forEach(data, function(value, key) {
-        
-        if(key == "startTime" || key == "endTime"){
-          amountOfInputs++;
-        }
-        if(key == "startTime" || key == "endTime"){
-          if(!timeFormat.test(value)){
-            self.passed = false;
-          }
-          
-        }
-      });
-      if(amountOfInputs < 2){
-        self.passed = false;
-      }
-   }
-
     self.getRecordsOfMonth();
     self.getTotalSalary();
 
@@ -164,42 +142,58 @@ app.controller('daysCtrl', ['$scope','$stateParams', 'recordsService', '$cordova
    
   	
 
-  	$scope.saveDay = function() {
-       $scope.day.day = $scope.dayList;
-       $scope.day.month = $scope.monthList.id;
-       
-       //CALL ADD DAY FUNCTION IF VALIDATED
-       self.validateForm($scope.day);
-       if(self.passed == true){
+  	$scope.saveDay = function(day) {
 
-          var start_hours = $scope.day.startTime.substr(0, $scope.day.startTime.indexOf(':'));
-          var start_minutes = $scope.day.startTime.substr($scope.day.startTime.indexOf(":") + 1);
+      //CALL ADD DAY FUNCTION IF VALIDATED
 
-          var end_hours = $scope.day.endTime.substr(0, $scope.day.endTime.indexOf(':'));
-          var end_minutes = $scope.day.endTime.substr($scope.day.endTime.indexOf(":") + 1);
+      var newTkr = angular.copy(day);
 
-          var startDate = new Date(self.currentYear, $scope.day.month -1, $scope.day.day, start_hours, start_minutes).toISOString();
-          var endDate = new Date(self.currentYear, $scope.day.month -1, $scope.day.day, end_hours, end_minutes).toISOString();
+       newTkr.startDateTime.setFullYear(self.currentYear);
+       newTkr.startDateTime.setMonth($scope.monthList.id -1);
 
-          var dbDay = {
-            startDateTime: startDate,
-            endDateTime: endDate,
-            breakDuration: parseInt($scope.day.break),
-            wage: parseInt(window.localStorage.getItem("uurloon")),
-            addition: $scope.day.addition, 
-          };
+       newTkr.endDateTime.setFullYear(self.currentYear);
+       newTkr.endDateTime.setMonth($scope.monthList.id -1);
 
-          if($scope.imgHidden == false){
-              dbDay.ImgURL = $scope.imgURI;
-          }
-          if($scope.hidden == false){
-              dbDay.location = { lat: $scope.coords.latitude, lng: $scope.coords.longitude };
-          }
 
-          console.log(dbDay);
-          
-          //POST RECORD
-          recordsService.addDay(dbDay), {
+       newTkr.startDateTime = newTkr.startDateTime.toISOString();
+       newTkr.endDateTime = newTkr.endDateTime.toISOString();
+
+       newTkr.wage = parseInt(window.localStorage.getItem("uurloon"));
+       newTkr.breakDuration = parseInt(newTkr.breakDuration);
+
+       if($scope.hidden == false){
+            newTkr.location = { lat: $scope.coords.latitude, lng: $scope.coords.longitude };
+       }
+       if($scope.imgHidden == false){
+          recordsService.postImage($scope.imgURI, { 
+            onSuccess: function (result){
+              console.log(result);
+              newTkr.ImgURL = result.data.data.link;
+
+              console.log(newTkr);
+
+               //POST RECORD
+              recordsService.addDay(newTkr, { 
+                onSuccess: function (result){
+                  console.log(result.data);
+                  window.location.href = '#/days';
+                  window.location.reload();
+                },
+                onError: function(err){
+                  console.log(err);
+                }
+              })
+            },
+            onError: function(err){
+              console.log(err);
+            }
+          })
+       }
+       else{
+          console.log(newTkr);
+
+           //POST RECORD
+          recordsService.addDay(newTkr, { 
             onSuccess: function (result){
               console.log(result.data);
               window.location.href = '#/days';
@@ -208,13 +202,12 @@ app.controller('daysCtrl', ['$scope','$stateParams', 'recordsService', '$cordova
             onError: function(err){
               console.log(err);
             }
-          }
-          recordsService.addDay($scope.day);
+          })
        }
-       else{
-          //trow error
-          $scope.errorHidden = false;
-       }
+       
+
+       
+       
   	}
 
     function showMap(coords) {

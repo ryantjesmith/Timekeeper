@@ -1,14 +1,14 @@
 <ion-view view-title="Jaar {{year}}">
   <ion-content>
     <div class="totaal_container" ng-show="showTotal" >
-      <div class="totaal">€{{totalYearSalary}}</div>
+      <div class="totaal">€{{totalYearSalary}},00</div>
       <img src="./img/plus_gray.png" class="plus_sign">
       <div style="clear: both;"></div>
     </div>
     <ion-list>
-      <ion-item class="item" ng-repeat="month in months" type="item-text-wrap" href="#/months/{{month.id}}">
-      	<span class="month">{{month.name}}</span>
-      	<span class="salary">€{{month.salary}}</span>
+      <ion-item class="item" ng-repeat="month in months" type="item-text-wrap" href="#/months/{{month.monthNumber}}">
+      	<span class="month">{{month.monthName}}</span>
+      	<span class="salary">€{{month.totalMonthSalary}},00</span>
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
     </ion-list>

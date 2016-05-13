@@ -1,8 +1,7 @@
 app.factory('settingsService', [function() {
 
-  // Some fake testing data
   var settings = [{
-    uurloon: 35.60,
+    uurloon: 8.00,
     totaalbedrag: true
   }];
 

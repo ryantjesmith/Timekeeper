@@ -2,16 +2,16 @@
   <ion-content>
   		
       <div class="list">
-        <form id="form_selectYear" name="selectYearForm" ng-controller="yearCtrl" ng-submit="saveSettings()">
+        <form id="form_selectYear" name="selectYearForm" ng-controller="yearCtrl" ng-submit="saveYear()">
 
-           <label class="item item-input item-select">
-              <div class="input-label">
-                Jaar
-              </div>
-              <select ng-model="yearlist"
-                      ng-options="year as year.name for year in years">
-              </select>
-            </label>
+          <label class="item item-input item-select">
+            <div class="input-label">
+              Jaar
+            </div>
+            <select ng-model="yearlist"
+                    ng-options="year as year for year in years">
+            </select>
+          </label>
 
           <button type="submit" class="button_submit" >Selecteren</button>
         </form>

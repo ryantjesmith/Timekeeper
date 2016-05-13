@@ -2,13 +2,14 @@
   <ion-content>
     <div class="totaal_container" ng-show="showTotal">
         <div class="totaal">€{{totalMonthSalary}}</div>
+        
         <img src="./img/plus_gray.png" class="plus_sign">
         <div style="clear: both;"></div>
     </div>
     <ion-list>
-      <ion-item class="item" ng-repeat="day in days" type="item-text-wrap" href="#/days/{{day.id}}">
-      	<span class="month">{{day.name}}</span>
-      	<span class="salary">€{{day.salary}}</span>
+      <ion-item class="item" ng-repeat="day in days" type="item-text-wrap" href="#/days/{{day.dayNumber}}">
+      	<span class="month">{{day.dayName}}</span>
+      	<span class="salary">€{{day.totalDaySalary}}</span>
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
     </ion-list>

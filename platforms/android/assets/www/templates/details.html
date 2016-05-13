@@ -2,21 +2,27 @@
   <ion-content>
   		<div class="custom_content">
   			<div class="timeBlock begintijd">
-  				<span>{{details.begintijd}}</span>
+  				<span>{{details.startTime}}</span>
   			</div>
   			<div class="timeBlock eindtijd">
-  				<span>{{details.eindtijd}}</span>
+  				<span>{{details.endTime}}</span>
   			</div>
   			<div class="timeBlock pauze">
-  				<span>{{details.pauze}}</span>
+  				<span>{{details.break}}</span>
   			</div>
 
   			
   			<div class="bijzonderheden">
   				<h3>Bijzonderheden</h3>
-  				<span>{{details.bijzonderheden}}</span>
+  				<span>{{details.addition}}</span>
+          <img ng-src="{{imgURI}}" class="detail_image">
+          <h3>Locatie</h3>
+          <div class="map_canvas"></div>
   			</div>
   		</div>
+
+      <div ng-hide="hidden" id="map-canvas"></div>
+      <img ng-src="{{details.ImgURL}}" class="thumbnailImage">
    	
   </ion-content>
 </ion-view>

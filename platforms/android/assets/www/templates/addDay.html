@@ -1,6 +1,7 @@
 <ion-view view-title="Dag toevoegen">
   <ion-content>
       <div class="list">
+
           <div class="list">
 
             <label class="item item-input item-select">
@@ -23,26 +24,41 @@
             </label>
 
           </div>
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Begintijd</span>
-            <input type="text" ng-model="day.begintijd" placeholder="Begintijd">
-          </label>
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Eindtijd</span>
-            <input type="text" ng-model="day.eindtijd" placeholder="Eindtijd">
-          </label>
-           <label class="item item-input item-floating-label">
-            <span class="input-label">Pauze</span>
-            <input type="text" ng-model="day.pauze" placeholder="Pauze">
-          </label>
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Bijzonderheden</span>
-            <textarea placeholder="Bijzonderheden" ng-model="day.bijzonderheden"></textarea>
-          </label>
-          <button ng-click="openCamera()" class="btn_addphoto">Voeg foto toe</button>
-          {{error}}
-          <img ng-src="{{imgURI}}" class="thumbnailImage" ng-model="day.imgURI">
-          <button class="button_submit" ng-click="saveDay()">Toevoegen</button>
+
+          <form class="form-horizontal" name="addTimekeepRecordForm">
+            <span class="extra">Voer tijden in in format: 14:00</span>
+            <span class="extra error" ng-hide="errorHidden">Voer alle velden correct in</span>
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Begintijd*</span>
+              <input type="time" ng-model="day.startDateTime" placeholder="Begintijd" required>
+            </label>
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Eindtijd*</span>
+              <input type="time" ng-model="day.endDateTime" placeholder="Eindtijd" required>
+            </label>
+             <label class="item item-input item-floating-label">
+              <span class="input-label">Pauze</span>
+              <input type="text" ng-model="day.breakDuration" placeholder="Pauze" >
+            </label>
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Bijzonderheden</span>
+              <textarea placeholder="Bijzonderheden" ng-model="day.addition"></textarea>
+            </label>
+
+            <!-- CAMERA AND MAP-->
+            <button ng-click="openCamera()" class="btn_addphoto">Voeg foto toe</button>
+            <button ng-click="openMap()" class="btn_addLocation">Voeg locatie toe</button>
+            
+            <div ng-hide="hidden" id="map-canvas"></div>
+            {{error}}
+            <img ng-src="{{imgURI}}" class="thumbnailImage" ng-model="day.imgURI">
+
+            
+            
+
+            <!-- SUBMIT -->
+            <button ng-disabled="addTimekeepRecordForm.$invalid" class="button_submit" ng-click="saveDay(day)">Toevoegen</button>
+          </form>
 
         </form>
       </div>

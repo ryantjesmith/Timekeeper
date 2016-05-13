@@ -28,6 +28,21 @@ var app = angular.module('app', ['ionic', 'ngCordova'])
   });
 })
 
+/** Debug config **/ 
+// .constant('API1', {
+// //   user: 'http://127.0.0.1:3000/users',
+// //   login: 'http://127.0.0.1:3000/login',
+// //   jwt: 'http://127.0.0.1:3000/jwt',
+// //   timekeeper: 'http://127.0.0.1:3000/timekeepers'
+// // })
+
+.constant('API', {
+    user: 'https://api-timekeeper.herokuapp.com/users',
+    login: 'https://api-timekeeper.herokuapp.com/login',
+    jwt: 'https://api-timekeeper.herokuapp.com/jwt',
+    timekeeper: 'https://api-timekeeper.herokuapp.com/timekeepers'
+  })
+
 
 .config(function($stateProvider, $urlRouterProvider) {
 
